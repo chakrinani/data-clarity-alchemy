@@ -1,0 +1,11 @@
+
+TaskID,Name,ClientID,AssignedWorkerID,EstimatedHours,ActualHours,Status,Priority,Phases,PreferredPhase,Dependencies,Skills
+T001,Homepage Design,C001,W003,20,18,Completed,High,2,1,[],UI/UX
+T002,API Development,C001,W002,40,45,In Progress,High,3,2,"[""T001""]",Python
+T003,Mobile App UI,C002,W005,30,25,Completed,Medium,2,1,[],React Native
+T004,Data Pipeline,C003,W004,50,,Not Started,High,4,1,[],Java
+T005,Report Generation,C003,W002,25,30,In Progress,Medium,2,2,"[""T004""]",Python
+T006,E-commerce Frontend,C004,W001,60,55,In Progress,High,5,3,[],JavaScript
+T007,Payment Integration,C004,W002,35,,Not Started,High,3,2,"[""T006""]",Python
+T008,Admin Dashboard,C004,W001,40,,Not Started,Medium,4,3,"[""T006""]",React
+T009,System Integration,C005,W004,45,40,Completed,Medium,3,1,[],Java

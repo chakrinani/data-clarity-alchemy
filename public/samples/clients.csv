@@ -1,0 +1,7 @@
+
+ClientID,Name,Email,Industry,ProjectType,ContactPerson,PhoneNumber,TaskIDs
+C001,TechCorp Solutions,contact@techcorp.com,Technology,Web Development,John Smith,+1-555-0101,"[""T001"",""T002""]"
+C002,Green Energy LLC,info@greenenergy.com,Energy,Mobile App,Sarah Johnson,+1-555-0102,"[""T003""]"
+C003,Financial Services Inc,,Finance,Data Analysis,Mike Wilson,+1-555-0103,"[""T004"",""T005""]"
+C004,Retail Giant,support@retailgiant.com,Retail,E-commerce Platform,Lisa Brown,,"[""T006"",""T007"",""T008""]"
+C005,Healthcare Partners,admin@healthpartners.com,Healthcare,System Integration,David Lee,+1-555-0105,"[""T009""]"

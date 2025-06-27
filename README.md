@@ -1,73 +1,204 @@
-# Welcome to your Lovable project
 
-## Project info
+# Data Alchemist 🧪✨
 
-**URL**: https://lovable.dev/projects/29d63f66-cdc2-44b9-84b9-a81faa9714f0
+**AI-Powered Spreadsheet Cleanup Assistant for Non-Technical Users**
 
-## How can I edit this code?
+Data Alchemist is a modern web application that transforms messy spreadsheet data into clean, validated, and rule-governed datasets using the power of AI and intuitive user interfaces.
 
-There are several ways of editing your application.
+## 🎯 Features
 
-**Use Lovable**
+### Core Functionality
+- **Multi-Format File Support**: Upload and parse CSV and Excel files
+- **Interactive Data Grids**: Real-time inline editing with validation feedback
+- **Smart Validation**: Comprehensive error detection and reporting
+- **AI-Powered Queries**: Natural language data filtering and search
+- **Visual Rule Builder**: Create complex business rules through intuitive UI
+- **Export System**: Generate clean data and structured rule configurations
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/29d63f66-cdc2-44b9-84b9-a81faa9714f0) and start prompting.
+### AI-Enhanced Capabilities
+- **Natural Language Processing**: Query your data using plain English
+- **Rule Generation**: Convert natural language descriptions into structured rules
+- **Smart Suggestions**: AI-powered recommendations for data cleanup
+- **Validation Intelligence**: Context-aware error detection and fixes
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Tech Stack
 
-**Use your preferred IDE**
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **File Processing**: Papa Parse (CSV) + SheetJS (Excel)
+- **AI Integration**: OpenAI API ready (requires API key)
+- **State Management**: React Query + React Hooks
+- **Build Tool**: Vite with Hot Module Replacement
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📁 Project Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```
+src/
+├── components/
+│   ├── ui/              # Reusable UI components
+│   ├── FileUpload.tsx   # Drag & drop file handling
+│   ├── DataGrid.tsx     # Interactive data table
+│   ├── ValidationSummary.tsx  # Error reporting
+│   ├── AIQueryInterface.tsx   # Natural language queries
+│   └── RuleBuilder.tsx  # Visual rule creation
+├── pages/
+│   ├── Index.tsx        # Main application page
+│   └── NotFound.tsx     # 404 page
+├── hooks/               # Custom React hooks
+├── lib/                 # Utility functions
+└── types/               # TypeScript definitions
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+public/
+└── samples/            # Example CSV files
+    ├── clients.csv
+    ├── workers.csv
+    └── tasks.csv
 ```
 
-**Edit a file directly in GitHub**
+## 🛠️ Installation & Setup
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd data-alchemist
+   ```
 
-**Use GitHub Codespaces**
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-## What technologies are used for this project?
+4. **Open in browser**
+   Navigate to `http://localhost:8080`
 
-This project is built with:
+## 📊 Sample Data
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The application comes with three sample CSV files in `/public/samples/`:
 
-## How can I deploy this project?
+- **clients.csv**: Client information with project assignments
+- **workers.csv**: Employee data with skills and availability
+- **tasks.csv**: Project tasks with dependencies and assignments
 
-Simply open [Lovable](https://lovable.dev/projects/29d63f66-cdc2-44b9-84b9-a81faa9714f0) and click on Share -> Publish.
+### Data Schema
 
-## Can I connect a custom domain to my Lovable project?
+#### Clients
+- ClientID, Name, Email, Industry, ProjectType, ContactPerson, PhoneNumber, TaskIDs
 
-Yes, you can!
+#### Workers  
+- WorkerID, Name, Email, Skills, MaxLoadPerPhase, CurrentLoad, Availability, Department, HourlyRate
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+#### Tasks
+- TaskID, Name, ClientID, AssignedWorkerID, EstimatedHours, ActualHours, Status, Priority, Phases, PreferredPhase, Dependencies, Skills
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🎨 Key Features Walkthrough
+
+### 1. File Upload & Processing
+- Drag & drop interface for CSV/Excel files
+- Real-time processing with progress indicators
+- Automatic data type detection and validation
+
+### 2. Interactive Data Grid
+- Inline editing capabilities
+- Visual error highlighting
+- Cell-level validation feedback
+- Pagination for large datasets
+
+### 3. Validation System
+- Cross-file reference checking
+- Duplicate ID detection
+- Required field validation
+- Data type validation
+- Custom business rule validation
+
+### 4. AI Query Interface
+- Natural language data filtering
+- Query suggestions and history
+- Intelligent result presentation
+- Context-aware search
+
+### 5. Rule Builder
+- Visual rule creation interface
+- Natural language to rule conversion
+- Rule prioritization and management
+- JSON export functionality
+
+## 🔮 AI Integration Setup
+
+To enable full AI capabilities:
+
+1. **Get OpenAI API Key**
+   - Sign up at [OpenAI Platform](https://platform.openai.com)
+   - Generate an API key
+
+2. **Configure AI Features**
+   - The app is ready for OpenAI integration
+   - Add your API key through the interface
+   - Enable natural language processing features
+
+## 📦 Build & Deployment
+
+1. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy to Vercel** (Recommended)
+   ```bash
+   # Install Vercel CLI
+   npm i -g vercel
+   
+   # Deploy
+   vercel
+   ```
+
+3. **Alternative Deployment Options**
+   - Netlify
+   - GitHub Pages
+   - AWS S3 + CloudFront
+   - Any static hosting service
+
+## 🎯 Target Users
+
+**Non-technical business users** who need to:
+- Clean and validate complex spreadsheet data
+- Create business rules without coding
+- Query data using natural language
+- Export clean, structured data for other systems
+
+## 🚀 Getting Started
+
+1. **Upload Data**: Start by uploading your CSV or Excel files
+2. **Review Validation**: Check the validation summary for any errors
+3. **Query Data**: Use natural language to explore your data
+4. **Create Rules**: Build business rules using the visual interface
+5. **Export Results**: Download clean data and rule configurations
+
+## 📈 Future Enhancements
+
+- Real-time collaboration features
+- Advanced AI data correction suggestions
+- Integration with popular business tools
+- Custom validation rule scripting
+- Data visualization dashboard
+- Automated report generation
+
+## 🤝 Contributing
+
+This project was built as part of a Software Engineering Internship assignment. Feel free to:
+- Report bugs and issues
+- Suggest new features
+- Submit pull requests
+- Improve documentation
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+**Built with ❤️ using React, TypeScript, and AI**

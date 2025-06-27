@@ -1,0 +1,8 @@
+
+WorkerID,Name,Email,Skills,MaxLoadPerPhase,CurrentLoad,Availability,Department,HourlyRate
+W001,Alice Cooper,alice@company.com,"[""JavaScript"",""React"",""Node.js""]",40,25,Available,Frontend,75
+W002,Bob Martinez,bob@company.com,"[""Python"",""Django"",""PostgreSQL""]",35,35,Busy,Backend,80
+W003,Carol Zhang,carol@company.com,"[""UI/UX"",""Figma"",""Adobe XD""]",30,15,Available,Design,70
+W004,David Kim,david@company.com,"[""Java"",""Spring"",""MySQL""]",45,,Available,Backend,85
+W005,Eva Rodriguez,eva@company.com,"[""React Native"",""iOS"",""Android""]",40,20,Available,Mobile,90
+W006,Frank Thompson,,"[""DevOps"",""AWS"",""Docker""]",35,30,Available,Infrastructure,95
