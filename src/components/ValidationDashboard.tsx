@@ -25,6 +25,24 @@ interface ValidationDashboardProps {
   };
 }
 
+const generateRecommendations = (errorCount: number, warningCount: number, validationScore: number) => {
+  const recommendations = [];
+  
+  if (errorCount > 0) {
+    recommendations.push("Fix all errors before proceeding with data processing");
+  }
+  
+  if (warningCount > 10) {
+    recommendations.push("Review warnings to improve data quality");
+  }
+  
+  if (validationScore < 80) {
+    recommendations.push("Consider data cleanup before using this dataset");
+  }
+  
+  return recommendations;
+};
+
 const ValidationDashboard: React.FC<ValidationDashboardProps> = ({ files }) => {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'errors' | 'warnings'>('all');
   
@@ -70,7 +88,7 @@ const ValidationDashboard: React.FC<ValidationDashboardProps> = ({ files }) => {
         severity: data.rule?.severity || 'error'
       })),
       detailedErrors: allErrors,
-      recommendations: this.generateRecommendations()
+      recommendations: generateRecommendations(errorCount, warningCount, validationScore)
     };
 
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
@@ -80,24 +98,6 @@ const ValidationDashboard: React.FC<ValidationDashboardProps> = ({ files }) => {
     a.download = `validation-report-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
-  };
-
-  const generateRecommendations = () => {
-    const recommendations = [];
-    
-    if (errorCount > 0) {
-      recommendations.push("Fix all errors before proceeding with data processing");
-    }
-    
-    if (warningCount > 10) {
-      recommendations.push("Review warnings to improve data quality");
-    }
-    
-    if (validationScore < 80) {
-      recommendations.push("Consider data cleanup before using this dataset");
-    }
-    
-    return recommendations;
   };
 
   return (
@@ -199,13 +199,13 @@ const ValidationDashboard: React.FC<ValidationDashboardProps> = ({ files }) => {
             <Card className="p-6 bg-slate-800/50 border-slate-700">
               <h3 className="text-lg font-semibold text-white mb-4">Recommendations</h3>
               <div className="space-y-2">
-                {generateRecommendations().map((rec, index) => (
+                {generateRecommendations(errorCount, warningCount, validationScore).map((rec, index) => (
                   <div key={index} className="flex items-start space-x-2 p-2 bg-blue-500/10 rounded-lg">
                     <AlertCircle className="h-4 w-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <p className="text-sm text-blue-300">{rec}</p>
                   </div>
                 ))}
-                {generateRecommendations().length === 0 && (
+                {generateRecommendations(errorCount, warningCount, validationScore).length === 0 && (
                   <p className="text-slate-400 text-sm">No specific recommendations. Data quality looks good!</p>
                 )}
               </div>
