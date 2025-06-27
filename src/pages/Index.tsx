@@ -1,14 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FileUpload from '@/components/FileUpload';
 import DataGrid from '@/components/DataGrid';
-import ValidationSummary from '@/components/ValidationSummary';
+import ValidationDashboard from '@/components/ValidationDashboard';
 import AIQueryInterface from '@/components/AIQueryInterface';
 import RuleBuilder from '@/components/RuleBuilder';
-import { Brain, Database, FileCheck, Settings, Sparkles } from 'lucide-react';
+import PrioritizationEngine from '@/components/PrioritizationEngine';
+import { Brain, Database, FileCheck, Settings, Sparkles, Target } from 'lucide-react';
+import { validationEngine } from '@/utils/validationEngine';
 
 interface FileData {
   name: string;
@@ -22,6 +24,7 @@ interface ValidationError {
   column: string;
   message: string;
   severity: 'error' | 'warning';
+  ruleId?: string;
 }
 
 const Index = () => {
@@ -30,8 +33,51 @@ const Index = () => {
   const [rules, setRules] = useState<any[]>([]);
 
   const handleFileProcessed = (fileName: string, data: FileData) => {
-    setFiles(prev => ({ ...prev, [fileName]: data }));
+    // Run comprehensive validation
+    const validationErrors = validationEngine.validateData(
+      data.data, 
+      data.headers, 
+      fileName, 
+      files
+    );
+
+    const processedData = {
+      ...data,
+      validationErrors
+    };
+
+    setFiles(prev => ({ ...prev, [fileName]: processedData }));
   };
+
+  // Re-run validation when files change (for cross-file references)
+  useEffect(() => {
+    const revalidateFiles = () => {
+      const updatedFiles = { ...files };
+      let hasChanges = false;
+
+      Object.entries(files).forEach(([fileName, fileData]) => {
+        const newErrors = validationEngine.validateData(
+          fileData.data,
+          fileData.headers,
+          fileName,
+          files
+        );
+
+        if (JSON.stringify(newErrors) !== JSON.stringify(fileData.validationErrors)) {
+          updatedFiles[fileName] = { ...fileData, validationErrors: newErrors };
+          hasChanges = true;
+        }
+      });
+
+      if (hasChanges) {
+        setFiles(updatedFiles);
+      }
+    };
+
+    if (Object.keys(files).length > 1) {
+      revalidateFiles();
+    }
+  }, [Object.keys(files).length]);
 
   const totalErrors = Object.values(files).reduce((sum, file) => 
     sum + file.validationErrors.filter(e => e.severity === 'error').length, 0
@@ -78,7 +124,7 @@ const Index = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-slate-800/50 border border-slate-700">
+          <TabsList className="grid w-full grid-cols-6 bg-slate-800/50 border border-slate-700">
             <TabsTrigger value="upload" className="flex items-center space-x-2">
               <Database className="h-4 w-4" />
               <span>Upload</span>
@@ -90,6 +136,10 @@ const Index = () => {
             <TabsTrigger value="validation" className="flex items-center space-x-2">
               <Settings className="h-4 w-4" />
               <span>Validation</span>
+            </TabsTrigger>
+            <TabsTrigger value="priority" className="flex items-center space-x-2">
+              <Target className="h-4 w-4" />
+              <span>Priority</span>
             </TabsTrigger>
             <TabsTrigger value="query" className="flex items-center space-x-2">
               <Brain className="h-4 w-4" />
@@ -135,7 +185,11 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="validation" className="space-y-6">
-            <ValidationSummary files={files} />
+            <ValidationDashboard files={files} />
+          </TabsContent>
+
+          <TabsContent value="priority" className="space-y-6">
+            <PrioritizationEngine />
           </TabsContent>
 
           <TabsContent value="query" className="space-y-6">
